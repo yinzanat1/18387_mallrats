@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 
@@ -16,7 +18,7 @@ public class TheDomino {
         theColorNormal = (NormalizedColorSensor) theColorinator;
     }
 
-    public int getColorNumber () {
+    public Integer getColorNumber () {
         //int gain;
         NormalizedRGBA normalizedColors;
         int color;
@@ -39,15 +41,15 @@ float gain = 2;
         // Show the color on the Robot Controller screen.
         //JavaUtil.showColor(hardwareMap.appContext, color);
         // Use hue to determine if it's red, green, blue, etc..
-        if (hue < 8) {
+    if (hue < 8) {
             return 0;
         } else if (hue < 30) {
             return 1;
         } else if (hue < 60) {
             return 2;
-        } else if (hue < 90) {
+        } else if (hue < 95) { //wus 90
             return 3;
-        } else if (hue < 150) {
+        } else if (hue < 165) { //wus 150
             return 4;
         } else if (hue < 225) {
             return 5;
@@ -89,7 +91,7 @@ float gain = 2;
         return "Dunno";
     }
 
-    public double getHue () {
+    public Float getHue () {
         //int gain;
         NormalizedRGBA normalizedColors;
         int color;
@@ -99,7 +101,7 @@ float gain = 2;
         // Read color from the sensor.
         normalizedColors = ((NormalizedColorSensor) theColorinator).getNormalizedColors();
         color = normalizedColors.toColor();
-        return JavaUtil.colorToHue(color);
+        return (Float)JavaUtil.colorToHue(color);
     }
         /* */
         public int getColorRed () {

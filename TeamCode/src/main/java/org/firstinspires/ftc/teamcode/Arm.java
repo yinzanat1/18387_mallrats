@@ -7,6 +7,8 @@ package org.firstinspires.ftc.teamcode;
             private rightStart integer
             private leftStart integer
 
+
+
         methods:
             void moveArm (targetPosition)
             void rotateArm (direction, times)  // -1 is non stop, 0 to stop
@@ -28,8 +30,14 @@ public class Arm {
 
     public void moveArm (double targetAngle) {
         //one rotation = 1120 ticks in the woods
-        theArm.setTargetPosition ((int)(targetAngle*oneDegree));
+        theArm.setTargetPosition ((int)(targetAngle*oneDegree) + ((theArm.getCurrentPosition()/1120) * 1120));
         theArm.setPower (0.2*Math.signum (theArm.getTargetPosition() - theArm.getCurrentPosition()));
+    }
+    public int moveArm2 (double targetAngle) {
+        //one rotation = 1120 ticks in the woods
+        theArm.setTargetPosition ((int)(targetAngle*oneDegree) + ((theArm.getCurrentPosition()/1120) * 1120));
+        theArm.setPower (0.2*Math.signum (theArm.getTargetPosition() - theArm.getCurrentPosition()));
+        return (theArm.getTargetPosition());
     }
     public void rotateArm (int directionMultiplier, double rotationTimes) {
         theArm.setTargetPosition((int)(1120*directionMultiplier*rotationTimes));
@@ -46,7 +54,13 @@ public class Arm {
         return false;
     }
     public boolean atTargetPrecision () {
-        theArm.setPower ((theArm.getTargetPosition() - theArm.getCurrentPosition())/560.0);
+        theArm.setPower ((theArm.getTargetPosition() - theArm.getCurrentPosition())/280.0);
+        if (theArm.getPower() > 0 && theArm.getPower() <= 0.05) {
+            theArm.setPower(0.05);
+        }
+        if (theArm.getPower() < 0 && theArm.getPower() >= -0.05) {
+            theArm.setPower(-0.05);
+        }
         return 0==theArm.getPower();
     }
     public void setArmPower (double inPower) {
